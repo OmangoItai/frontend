@@ -2,19 +2,19 @@
   <div class="login">
     <div class="sub-item">
       Username
-      <input v-model="username">
-      {{username}}
+      <input v-model="username" />
+      {{ username }}
     </div>
 
     <div class="sub-item">
       Password
-      <input v-model="password" type="password">
-      {{password}}
+      <input v-model="password" type="password" />
+      {{ password }}
     </div>
     <div class="sub-item">
       Repeat
-      <input v-model="repeat" type="password">
-      {{repeat}}
+      <input style="margin-left: 35px" v-model="repeat" type="password" />
+      {{ repeat }}
     </div>
     <RegisterButton @click="Register" />
   </div>
@@ -24,27 +24,26 @@
 import RegisterButton from "@/components/RegisterButton";
 export default {
   name: "Login",
-  components: {RegisterButton},
-  data: ()=> {
+  components: { RegisterButton },
+  data: () => {
     return {
-      username: '',
-      password: '',
-      repeat: ''
-    }
+      username: "",
+      password: "",
+      repeat: "",
+    };
   },
   methods: {
-    Register: function (){
-      if(this.password != this.repeat)
-        alert("you've repeat the wrong password")
-      else
-        alert('2 pswds are same')
-    }
-  }
-}
+    Register: function () {
+      if (this.password != this.repeat)
+        alert("you've repeat the wrong password");
+      else alert("2 pswds are same");
+    },
+  },
+};
 </script>
 
 <style scoped>
-input{
+input {
   outline: 3px solid #32b97b;
   border-radius: 3px;
 
@@ -54,14 +53,16 @@ input{
   text-align: center;
   font-size: 1.6em;
 }
-.login{
+.login {
   outline: 3px solid #32b97b;
   border-radius: 3px;
   background-color: #87deb6;
   color: #fcfcfd;
   font-weight: bold;
+
+  padding: 30px;
 }
-.sub-item{
+.sub-item {
   font-size: 1.6em;
 }
 </style>

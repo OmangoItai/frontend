@@ -1,15 +1,12 @@
 <template>
-  <a className='button' >
-    Download
-  </a>
+  <a href="#" className="button">Download</a>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style scoped>
-
 .button {
   display: inline-block;
   font-size: 2rem;
@@ -28,5 +25,4 @@ export default {}
 
   text-align: center;
 }
-
 </style>

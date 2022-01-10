@@ -2,17 +2,15 @@
   <div class="login">
     <div class="sub-item">
       Username
-      <input v-model="username">
-      {{username}}
+      <input v-model="username" />
     </div>
 
     <div class="sub-item">
       Password
-      <input v-model="password" type="password">
-      {{password}}
+      <input v-model="password" type="password" />
     </div>
-    <LoginButton/>
-    <RegisterButton/>
+    <LoginButton @click="Login" />
+    <RegisterButton />
   </div>
 </template>
 
@@ -21,18 +19,31 @@ import LoginButton from "@/components/LoginButton";
 import RegisterButton from "@/components/RegisterButton";
 export default {
   name: "Login",
-  components: {RegisterButton, LoginButton},
-  data: ()=> {
+  components: { RegisterButton, LoginButton },
+  data: () => {
     return {
-      username: '',
-      password: ''
-    }
-  }
-}
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    async Login() {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: this.username,
+          password: this.password,
+        }),
+      });
+      console.log(res);
+    },
+  },
+};
 </script>
 
 <style scoped>
-input{
+input {
   outline: 3px solid #32b97b;
   border-radius: 3px;
 
@@ -42,14 +53,16 @@ input{
   text-align: center;
   font-size: 1.6em;
 }
-.login{
+.login {
   outline: 3px solid #32b97b;
   border-radius: 3px;
   background-color: #87deb6;
   color: #fcfcfd;
   font-weight: bold;
+
+  padding: 30px;
 }
-.sub-item{
+.sub-item {
   font-size: 1.6em;
 }
 </style>

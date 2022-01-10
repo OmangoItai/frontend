@@ -1,34 +1,29 @@
 <template>
-  <a class='button'>
-    Register
-  </a>
+  <a href="/register" class="button"> Register </a>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style scoped>
+.button {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 200px;
+  margin: 15px;
 
-  .button {
-    display: inline-block;
-    font-size: 2rem;
-    font-weight: bold;
-    width: 200px;
-    margin: 15px;
+  padding: 10px;
 
-    padding: 10px;
+  background: #42b884;
 
-    background: #42b884;
+  color: #fcfcfd;
 
-    color: #fcfcfd;
+  border-radius: 30px;
 
-    border-radius: 30px;
+  text-decoration: none;
 
-    text-decoration: none;
-
-    text-align: center;
-  }
-
+  text-align: center;
+}
 </style>
