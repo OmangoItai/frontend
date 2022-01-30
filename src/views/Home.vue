@@ -1,8 +1,8 @@
 <template>
   <div class="box">
-    :D 期末毕业设计<br />
-    Eazy Cloud Drive<br />
-    Made By 李正尧
+    Tinyteam<br />
+    Author: Rend
+
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 
 export default {
   name: "Home",
+  components: {},
 };
 </script>
 

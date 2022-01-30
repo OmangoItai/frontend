@@ -9,14 +9,14 @@
       <div class="dir">
         <div v-for="dir in listDir" v-bind:key="dir">
           <input type="checkbox" v-model="selectedDir" :value="dir.name" />
-          {{ dir.name }}
+          <a href="dir.name">{{ dir.name }}</a>
         </div>
       </div>
 
       <div class="file">
         <div v-for="file in listFile" v-bind:key="file">
           <input type="checkbox" v-model="selectedFile" :value="file.name" />
-          {{ file.name }}
+          <a href="file.name">{{ file.name }}</a>
         </div>
       </div>
     </div>
@@ -77,6 +77,9 @@ export default {
 <style scoped>
 .selection {
   font-size: 1.5em;
+}
+.login a {
+  text-decoration: none;
 }
 .login {
   outline: 3px solid #32b97b;

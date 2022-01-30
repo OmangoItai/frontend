@@ -1,13 +1,14 @@
 <template>
+  <div id="top-bar">
+    <router-link to="/"><img src="@/assets/home.svg"><br>Home</router-link>
+    <router-link to="/space"><img src="@/assets/files.svg"><br>Space</router-link>
+    <router-link to="/register"><img src="@/assets/register.svg"><br>Register</router-link>
+    <router-link to="/login"><img src="@/assets/login.svg"><br>Login</router-link>
+  </div>
   <div class="center">
     <div class="relative">
       <div style="position: absolute">
-        <div id="top-bar">
-          | <router-link to="/">Home</router-link> |
-          <router-link to="/login">Login</router-link> |
-          <router-link to="/space">Space</router-link> |
-          <router-link to="/register">Register</router-link> |
-        </div>
+
       </div>
     </div>
     <router-view />
@@ -20,9 +21,9 @@ export default {};
 
 <style>
 body {
+  font-family:"Times New Roman", Times, serif;
   margin: 0;
-
-  background-color: #c1f1dc;
+  background-color: #ccecde;
 }
 
 .center {
@@ -60,15 +61,29 @@ body {
 }
 
 #top-bar {
-  padding: 30px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  position: fixed;
+  top:3px;
+  outline : 3px solid ;
+  padding: 10px;
+  color: #42b983;
+  background-color: #42b983;
+  width: 100%;
 }
 
 #top-bar a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #5fdea4;
+  text-decoration: none;
+}
+
+#top-bar img {
+  width: 25px;
+  height: 25px;
 }
 
 #top-bar a.router-link-exact-active {
-  color: #42b983;
+  color: #42735c;
 }
 </style>
