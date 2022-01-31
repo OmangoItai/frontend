@@ -8,7 +8,6 @@
   <div class="center">
     <div class="relative">
       <div style="position: absolute">
-
       </div>
     </div>
     <router-view />

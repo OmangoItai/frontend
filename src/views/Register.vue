@@ -33,10 +33,21 @@ export default {
     };
   },
   methods: {
-    Register: function () {
-      if (this.password != this.repeat)
+    async Register() {
+      if (this.password !== this.repeat)
         alert("you've repeat the wrong password");
-      else alert("2 pswds are same");
+      else {
+        alert("2 password are same");
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: this.username,
+            password: this.password,
+          }),
+        });
+        alert(res);
+      }
     },
   },
 };

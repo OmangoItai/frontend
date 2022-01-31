@@ -36,7 +36,7 @@ export default {
           password: this.password,
         }),
       });
-      console.log(res);
+      alert(res);
     },
   },
 };
