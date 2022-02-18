@@ -61,7 +61,6 @@ export default {
 
     async GetList() {
       const res = await fetch("/api/file/list");
-      console.log(res);
       if (res.redirected) {
         return this.$router.push(res.url);
       }
