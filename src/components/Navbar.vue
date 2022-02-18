@@ -9,14 +9,29 @@
     <router-link to="/register">
       <img src="@/assets/register.svg" /><br />Register
     </router-link>
-    <router-link to="/login">
-      <img src="@/assets/login.svg" /><br />Login
+    <router-link v-if="isLogined" to="#" @click="logout">
+      <img src="@/assets/login.svg" /><br />Logout
+    </router-link>
+    <router-link v-else to="/login">
+      <img src="@/assets/login.svg" /><br />login
     </router-link>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "navbar",
+  methods: {
+    logout() {
+      this.$store.commit("set", false);
+    },
+  },
+  computed: {
+    isLogined() {
+      return this.$store.state.logined;
+    },
+  },
+};
 </script>
 
 <style scoped>
