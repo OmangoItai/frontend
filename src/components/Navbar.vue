@@ -23,7 +23,9 @@ export default {
   name: "navbar",
   methods: {
     logout() {
+      fetch("/api/user/logout");
       this.$store.commit("set", false);
+      this.$router.push("/login");
     },
   },
   computed: {
