@@ -9,17 +9,17 @@
       Password
       <input v-model="password" type="password" />
     </div>
-    <LoginButton @click="Login" />
-    <RegisterButton />
+    <Button @click="login">登录</Button>
+    <Button @click="regis">注册</Button>
   </div>
 </template>
 
 <script>
-import LoginButton from "@/components/LoginButton";
-import RegisterButton from "@/components/RegisterButton";
+import Button from "@/components/Button";
+
 export default {
   name: "Login",
-  components: { RegisterButton, LoginButton },
+  components: { Button },
   data: () => {
     return {
       username: "",
@@ -27,7 +27,7 @@ export default {
     };
   },
   methods: {
-    async Login() {
+    async login() {
       this.$store.commit("set", true);
       const res = await fetch("/api/login", {
         method: "POST",
@@ -38,6 +38,9 @@ export default {
         }),
       });
       alert(res);
+    },
+    regis() {
+      this.$router.push("/register");
     },
   },
 };
