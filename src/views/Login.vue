@@ -29,7 +29,7 @@ export default {
   methods: {
     async login() {
       this.$store.commit("set", true);
-      const res = await fetch("/api/login", {
+      const res = await fetch("/api/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -37,7 +37,14 @@ export default {
           password: this.password,
         }),
       });
-      alert(res);
+
+      if (res.redirected) {
+        this.$router.push(res.url);
+      }
+
+      if (res.status == 200) {
+        this.$store.commit("set", this.username);
+      }
     },
     regis() {
       this.$router.push("/register");

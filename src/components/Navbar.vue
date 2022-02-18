@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     isLogined() {
-      return this.$store.state.logined;
+      return this.$store.state.username != "";
     },
   },
 };
