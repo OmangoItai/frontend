@@ -64,9 +64,8 @@ export default {
       if (res.redirected) {
         return this.$router.push(res.url);
       }
-      const { listDir, listFile } = await res.json();
-      this.listDir = listDir;
-      this.listFile = listFile;
+      const list = await res.json();
+      this.listFile = list;
     },
   },
 };
