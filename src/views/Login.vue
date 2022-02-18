@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     async Login() {
+      this.$store.commit("set", true);
       const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
