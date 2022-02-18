@@ -61,6 +61,9 @@ export default {
 
     async GetList() {
       const res = await fetch("/api/file/list");
+      if (res.redirected) {
+        return this.$router.push(res.url);
+      }
       const { listDir, listFile } = await res.json();
       this.listDir = listDir;
       this.listFile = listFile;
