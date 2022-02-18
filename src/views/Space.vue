@@ -59,16 +59,11 @@ export default {
       alert("DOWNLOADING " + selectedDir + ", and " + selectedFile);
     },
 
-    GetList() {
-      this.listDir = [
-        { name: "gay video", path: "" },
-        { name: "animals", path: "" },
-      ];
-      this.listFile = [
-        { name: "f", path: "" },
-        { name: "u", path: "" },
-        { name: "3", path: "" },
-      ];
+    async GetList() {
+      const res = await fetch("/api/file/list");
+      const { listDir, listFile } = await res.json();
+      this.listDir = listDir;
+      this.listFile = listFile;
     },
   },
 };
