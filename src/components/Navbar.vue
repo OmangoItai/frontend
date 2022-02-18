@@ -21,10 +21,16 @@
 <script>
 export default {
   name: "navbar",
+  mounted() {
+    fetch("/api/user/login").then(async (res) => {
+      const json = await res.json();
+      this.$store.commit("set", json.username);
+    });
+  },
   methods: {
     logout() {
       fetch("/api/user/logout");
-      this.$store.commit("set", false);
+      this.$store.commit("set", "");
       this.$router.push("/login");
     },
   },
