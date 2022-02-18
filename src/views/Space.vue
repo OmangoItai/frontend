@@ -8,14 +8,14 @@
 
       <div class="dir">
         <div v-for="dir in listDir" v-bind:key="dir">
-          <input type="checkbox" v-model="selectedDir" :value="dir.name" />
+          <input type="checkbox" :value="dir.name" />
           <a href="dir.name">{{ dir.name }}</a>
         </div>
       </div>
 
       <div class="file">
         <div v-for="file in listFile" v-bind:key="file">
-          <input type="checkbox" v-model="selectedFile" :value="file.name" />
+          <input type="checkbox" :value="file.name" />
           <a href="file.name">{{ file.name }}</a>
         </div>
       </div>
