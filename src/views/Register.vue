@@ -3,18 +3,15 @@
     <div class="sub-item">
       Username
       <input v-model="username" />
-      {{ username }}
     </div>
 
     <div class="sub-item">
       Password
       <input v-model="password" type="password" />
-      {{ password }}
     </div>
     <div class="sub-item">
       Repeat
       <input style="margin-left: 35px" v-model="repeat" type="password" />
-      {{ repeat }}
     </div>
     <RegisterButton @click="Register" />
   </div>
