@@ -1,19 +1,19 @@
 <template>
   <div class="login">
     <div class="sub-item">
-      Username
+      用户名
       <input v-model="username" />
     </div>
 
     <div class="sub-item">
-      Password
+      密码
       <input v-model="password" type="password" />
     </div>
     <div class="sub-item">
-      Repeat
+      重复密码
       <input style="margin-left: 35px" v-model="repeat" type="password" />
     </div>
-    <Button @click="Register">Register</Button>
+    <Button @click="Register">注册</Button>
   </div>
 </template>
 

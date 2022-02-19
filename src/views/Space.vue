@@ -3,7 +3,7 @@
     <div class="selection">
       <div class="option">
         <input type="checkbox" @input="SelectAll" />
-        all
+        全选
       </div>
 
       <div class="dir">
@@ -62,6 +62,7 @@ export default {
     async GetList() {
       const res = await fetch("/api/file/list");
       if (res.redirected) {
+        alert('请登录')
         return this.$router.push(res.url);
       }
       const list = await res.json();

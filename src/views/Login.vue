@@ -1,12 +1,12 @@
 <template>
   <div class="login">
     <div class="sub-item">
-      Username
+      用户名
       <input v-model="username" />
     </div>
 
     <div class="sub-item">
-      Password
+      密码
       <input v-model="password" type="password" />
     </div>
     <Button @click="login">登录</Button>
@@ -37,14 +37,17 @@ export default {
           password: this.password,
         }),
       });
-
       if (res.redirected) {
         this.$router.push(res.url);
       }
 
-      if (res.status == 200) {
+      if (res.status == 200)
         this.$store.commit("set", this.username);
+      else{
+        const json = await res.json()
+        alert(json['msg'])
       }
+
     },
     regis() {
       this.$router.push("/register");

@@ -1,19 +1,19 @@
 <template>
   <div id="top-bar">
     <router-link to="/">
-      <img src="@/assets/home.svg" /><br />Home
+      <img src="@/assets/home.svg" /><br />首页
     </router-link>
     <router-link to="/space"
-      ><img src="@/assets/files.svg" /><br />Space
+      ><img src="@/assets/files.svg" /><br />空间
     </router-link>
     <router-link to="/register">
-      <img src="@/assets/register.svg" /><br />Register
+      <img src="@/assets/register.svg" /><br />注册
     </router-link>
     <router-link v-if="isLogined" to="#" @click="logout">
-      <img src="@/assets/login.svg" /><br />Logout
+      <img src="@/assets/login.svg" /><br />登出
     </router-link>
     <router-link v-else to="/login">
-      <img src="@/assets/login.svg" /><br />login
+      <img src="@/assets/login.svg" /><br />登入
     </router-link>
   </div>
 </template>
