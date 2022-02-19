@@ -21,14 +21,22 @@
 <script>
 export default {
   name: "navbar",
+  mounted() {
+    fetch("/api/user/login").then(async (res) => {
+      const json = await res.json();
+      this.$store.commit("set", json.username);
+    });
+  },
   methods: {
     logout() {
-      this.$store.commit("set", false);
+      fetch("/api/user/logout");
+      this.$store.commit("set", "");
+      this.$router.push("/login");
     },
   },
   computed: {
     isLogined() {
-      return this.$store.state.logined;
+      return this.$store.state.username != "";
     },
   },
 };

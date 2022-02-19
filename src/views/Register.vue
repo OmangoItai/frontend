@@ -3,28 +3,25 @@
     <div class="sub-item">
       Username
       <input v-model="username" />
-      {{ username }}
     </div>
 
     <div class="sub-item">
       Password
       <input v-model="password" type="password" />
-      {{ password }}
     </div>
     <div class="sub-item">
       Repeat
       <input style="margin-left: 35px" v-model="repeat" type="password" />
-      {{ repeat }}
     </div>
-    <RegisterButton @click="Register" />
+    <Button @click="Register">Register</Button>
   </div>
 </template>
 
 <script>
-import RegisterButton from "@/components/RegisterButton";
+import Button from "@/components/Button";
 export default {
   name: "Login",
-  components: { RegisterButton },
+  components: { Button },
   data: () => {
     return {
       username: "",
@@ -37,8 +34,7 @@ export default {
       if (this.password !== this.repeat)
         alert("you've repeat the wrong password");
       else {
-        alert("2 password are same");
-        const res = await fetch("/api/register", {
+        const res = await fetch("/api/user/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -46,7 +42,8 @@ export default {
             password: this.password,
           }),
         });
-        alert(res);
+        const json = await res.json();
+        alert(JSON.stringify(json));
       }
     },
   },

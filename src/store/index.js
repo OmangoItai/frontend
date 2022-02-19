@@ -2,11 +2,11 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    logined: false,
+    username: "",
   },
   mutations: {
     set(state, value) {
-      state.logined = value;
+      state.username = value;
     },
   },
 });
