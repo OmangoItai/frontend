@@ -43,7 +43,7 @@ export default {
           }),
         });
         const json = await res.json();
-        alert(JSON.stringify(json));
+        alert(JSON.stringify(json['msg']));
       }
     },
   },

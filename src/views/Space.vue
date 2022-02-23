@@ -12,11 +12,10 @@
           <a href="dir.name">{{ dir.name }}</a>
         </div>
       </div>
-
       <div class="file">
         <div v-for="file in listFile" v-bind:key="file">
           <input type="checkbox" :value="file.name" />
-          <a href="file.name">{{ file.name }}</a>
+          <a>{{ file.name }}</a>
         </div>
       </div>
     </div>
@@ -66,6 +65,7 @@ export default {
         return this.$router.push(res.url);
       }
       const list = await res.json();
+      console.log(list)
       this.listFile = list;
     },
   },
