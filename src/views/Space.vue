@@ -59,13 +59,13 @@ export default {
     },
 
     async GetList() {
-      const res = await fetch("/api/file/list");
+      const res = await fetch(`/api/file/list?dir=${this.$route.path}`);
       if (res.redirected) {
-        alert('请登录')
+        alert("请登录");
         return this.$router.push(res.url);
       }
       const list = await res.json();
-      console.log(list)
+      console.log(list);
       this.listFile = list;
     },
   },
