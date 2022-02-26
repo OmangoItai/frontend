@@ -19,7 +19,7 @@ const routes = [
     component: Login,
   },
   {
-    path: "/space",
+    path: "/space:catchAll(.*)",
     name: "Space",
     component: Space,
   },
