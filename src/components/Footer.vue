@@ -1,6 +1,6 @@
 <template>
   <div>
-    Copyright © Aspecta ai 2021 All Rights Reserved
+    Copyright © Snowsore & Rend
   </div>
 </template>
 
@@ -18,16 +18,16 @@ export default {
     position: fixed;
 
     width: 100%;
-    height: 18px;
+    height: 15px;
 
-    padding: 10px;
+    padding: 3px;
 
-    color: #A5A5A5;
-    background-color: #3F3F3F;
+    color: #654a4a;
+    background-color: rgba(86, 121, 105, 0.64);
 
     text-align: left;
     font-family:serif;
-
+    user-select: none;
   }
 
 </style>>

@@ -7,28 +7,30 @@
       </div>
 
       <div class="dir">
+        <a :href="$route.path.substring(0,$route.path.lastIndexOf('/'))">..</a>
         <div v-for="dir in listDir" v-bind:key="dir">
           <input type="checkbox" :value="dir.name" />
-          <a href="dir.name">{{ dir.name }}</a>
+          <a :href="$route.path + '/' + dir.name">{{ dir.name }}</a>
         </div>
       </div>
       <div class="file">
         <div v-for="file in listFile" v-bind:key="file">
           <input type="checkbox" :value="file.name" />
-          <a>{{ file.name }}</a>
+          <a :href="$route.path + '/' + file.name">{{ file.name }}</a>
         </div>
       </div>
     </div>
 
-    <DownloadButton @click="DownLoad" />
+    <Button @click="DownLoad">下载</Button>
+    <Button @click="DownLoad">上传</Button>
   </div>
 </template>
 
 <script>
-import DownloadButton from "@/components/DownloadButton";
+import Button from "@/components/Button";
 export default {
   name: "SelectList",
-  components: { DownloadButton },
+  components: { Button },
   data: () => {
     return {
       listDir: [],
@@ -45,7 +47,7 @@ export default {
       inputs.forEach((e) => (e.checked = input.checked));
     },
 
-    DownLoad: function () {
+    async DownLoad() {
       let selectedDir = [];
       let selectedFile = [];
       document
@@ -55,7 +57,27 @@ export default {
         .querySelectorAll(".file input:checked")
         .forEach((x) => selectedFile.push(x.value));
 
-      alert("DOWNLOADING " + selectedDir + ", and " + selectedFile);
+      var msg = '准备下载'
+      if(selectedDir.length > 0)
+        msg += "\n以下文件夹：" + selectedDir
+      if(selectedFile.length > 0)
+        msg += "\n以下文件：" + selectedFile
+      if(msg==='准备下载')
+        alert('您还未选择内容');
+      else
+        alert(msg)
+
+      const res = await fetch(`/api/file/download`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          'path' : this.$route.path,
+          'dirlist': selectedDir,
+          'filelist': selectedFile,
+        })
+      })
+      console.log(res)
+
     },
 
     async GetList() {
@@ -66,7 +88,8 @@ export default {
       }
       const list = await res.json();
       console.log(list);
-      this.listFile = list;
+      this.listDir = list['dir'];
+      this.listFile = list['file'];
     },
   },
 };

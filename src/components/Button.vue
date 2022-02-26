@@ -1,5 +1,5 @@
 <template>
-  <button class="button"><slot /></button>
+  <a class="button"><slot /></a>
 </template>
 
 <script>
@@ -25,5 +25,7 @@ export default {};
   text-decoration: none;
 
   text-align: center;
+
+  user-select: none;
 }
 </style>

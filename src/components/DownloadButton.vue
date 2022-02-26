@@ -1,5 +1,5 @@
 <template>
-  <a href="#" className="button">Download</a>
+  <a href="#" className="button">下载</a>
 </template>
 
 <script>
