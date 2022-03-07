@@ -69,11 +69,11 @@ export default {
 
       const res = await fetch(`/api/file/download`, {
         method: 'POST',
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/force-download"},
         body: JSON.stringify({
-          'path' : this.$route.path,
-          'dirlist': selectedDir,
-          'filelist': selectedFile,
+          path : this.$route.path,
+          dirlist: selectedDir,
+          filelist: selectedFile,
         })
       })
       console.log(res)
