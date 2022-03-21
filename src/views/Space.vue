@@ -45,9 +45,12 @@ export default {
   },
   methods: {
     SelectAll: function () {
-      const inputs = document.querySelectorAll("input");
       const input = document.querySelector("input");
-      inputs.forEach((e) => (e.checked = input.checked));
+      this.SetAll(input.checked);
+    },
+    SetAll(state) {
+      const inputs = document.querySelectorAll("input");
+      inputs.forEach((e) => (e.checked = state));
     },
 
     async DownLoad() {
@@ -69,12 +72,37 @@ export default {
       } else {
         alert(msg);
 
-        const url = this.$route.path.replace("space", "download");
+        const url = this.$route.path;
+
+        selectedDir.map(async (dir) => {
+          try {
+            const res = await fetch("/api/download", {
+              body: JSON.stringify({
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                path: `${url}/${dir}`,
+              }),
+            });
+            const text = await res.blob();
+            fileDownload(text, `${dir}.zip`);
+          } catch (err) {
+            console.error(err);
+          }
+        });
 
         selectedFile.map(async (file) => {
-          console.log(`${url}/${file}`);
           try {
-            const res = await fetch(`${url}/${file}`);
+            const res = await fetch("/api/download", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                path: `${url}/${file}`,
+              }),
+            });
             const text = await res.blob();
             fileDownload(text, file);
           } catch (err) {
