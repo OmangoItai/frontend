@@ -1,16 +1,18 @@
 <template>
   <div class="login">
     <div class="sub-item">
-      用户名
+      <div class="label">用户名</div>
       <input v-model="username" />
     </div>
 
     <div class="sub-item">
-      密码
+      <div class="label">密码</div>
       <input v-model="password" type="password" />
     </div>
-    <Button @click="login">登录</Button>
-    <Button @click="regis">注册</Button>
+    <div>
+      <Button @click="login">登录</Button>
+      <Button @click="regis">注册</Button>
+    </div>
   </div>
 </template>
 
@@ -41,13 +43,11 @@ export default {
         this.$router.push(res.url);
       }
 
-      if (res.status == 200)
-        this.$store.commit("set", this.username);
-      else{
-        const json = await res.json()
-        alert(json['msg'])
+      if (res.status == 200) this.$store.commit("set", this.username);
+      else {
+        const json = await res.json();
+        alert(json["msg"]);
       }
-
     },
     regis() {
       this.$router.push("/register");
@@ -60,9 +60,6 @@ export default {
 input {
   outline: 3px solid #32b97b;
   border-radius: 3px;
-
-  margin-top: 30px;
-  margin-bottom: 15px;
 
   text-align: center;
   font-size: 1.6em;
@@ -78,5 +75,17 @@ input {
 }
 .sub-item {
   font-size: 1.6em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 30px;
+}
+.label {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
