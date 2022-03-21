@@ -6,6 +6,9 @@ module.exports = {
       "/api": {
         target: "http://localhost:8080",
       },
+      "/download":{
+        target: "http://localhost:8080",
+      }
     },
   },
 };

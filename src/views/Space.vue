@@ -62,22 +62,29 @@ export default {
         msg += "\n以下文件夹：" + selectedDir
       if(selectedFile.length > 0)
         msg += "\n以下文件：" + selectedFile
-      if(msg==='准备下载')
+      if(msg==='准备下载') {
         alert('您还未选择内容');
+        return
+      }
       else
         alert(msg)
 
-      const res = await fetch(`/api/file/download`, {
-        method: 'POST',
-        headers: {"Content-Type": "application/force-download"},
-        body: JSON.stringify({
-          path : this.$route.path,
-          dirlist: selectedDir,
-          filelist: selectedFile,
-        })
-      })
-      console.log(res)
+      // const res = await fetch(`/api/file/download`, {
+      //   method: 'POST',
+      //   headers: {"Content-Type": "application/force-download"},
+      //   body: JSON.stringify({
+      //     path : this.$route.path,
+      //     dirlist: selectedDir,
+      //     filelist: selectedFile,
+      //   })
+      // })
 
+      var fileDownload = require("js-file-download");
+
+      (async () => {
+        const res = await fetch('/download/Snowsore/BigAss.txt')
+        fileDownload(await res.text(),"ass.txt")
+      })()
     },
 
     async GetList() {
