@@ -7,7 +7,7 @@
       </div>
 
       <div class="dir">
-        <a :href="$route.path.substring(0,$route.path.lastIndexOf('/'))">..</a>
+        <a :href="$route.path.substring(0, $route.path.lastIndexOf('/'))">..</a>
         <div v-for="dir in listDir" v-bind:key="dir">
           <input type="checkbox" :value="dir.name" />
           <a :href="$route.path + '/' + dir.name">{{ dir.name }}</a>
@@ -22,12 +22,16 @@
     </div>
 
     <Button @click="DownLoad">下载</Button>
-    <Button @click="DownLoad">上传</Button>
+    <Button @click="ClickUpload">上传</Button>
+    <input id="UploadInput" @change="Upload" type="file" />
   </div>
 </template>
 
 <script>
 import Button from "@/components/Button";
+
+const fileDownload = require("js-file-download");
+
 export default {
   name: "SelectList",
   components: { Button },
@@ -42,9 +46,29 @@ export default {
   },
   methods: {
     SelectAll: function () {
-      const inputs = document.querySelectorAll("input");
       const input = document.querySelector("input");
-      inputs.forEach((e) => (e.checked = input.checked));
+      this.SetAll(input.checked);
+    },
+    SetAll(state) {
+      const inputs = document.querySelectorAll("input");
+      inputs.forEach((e) => (e.checked = state));
+    },
+
+    ClickUpload() {
+      document.getElementById("UploadInput").click();
+    },
+
+    async Upload() {
+      const input = document.getElementById("UploadInput");
+      const form = new FormData();
+      const file = input.files[0];
+      form.append("file", file, file.name);
+      form.append("path", window.location.pathname);
+      await fetch("/api/upload", {
+        method: "POST",
+        body: form,
+      });
+      this.GetList();
     },
 
     async DownLoad() {
@@ -57,34 +81,57 @@ export default {
         .querySelectorAll(".file input:checked")
         .forEach((x) => selectedFile.push(x.value));
 
-      var msg = '准备下载'
-      if(selectedDir.length > 0)
-        msg += "\n以下文件夹：" + selectedDir
-      if(selectedFile.length > 0)
-        msg += "\n以下文件：" + selectedFile
-      if(msg==='准备下载') {
-        alert('您还未选择内容');
-        return
+      var msg = "准备下载";
+      if (selectedDir.length > 0) msg += "\n以下文件夹：" + selectedDir;
+      if (selectedFile.length > 0) msg += "\n以下文件：" + selectedFile;
+      if (msg === "准备下载") {
+        alert("您还未选择内容");
+        return;
+      } else {
+        alert(msg);
+
+        const url = this.$route.path;
+
+        selectedDir.map(async (dir) => {
+          try {
+            const res = await fetch("/api/download", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                type: "dir",
+                path: `${url}/${dir}`,
+              }),
+            });
+            const text = await res.blob();
+            fileDownload(text, `${dir}.zip`);
+          } catch (err) {
+            console.error(err);
+          }
+        });
+
+        selectedFile.map(async (file) => {
+          try {
+            const res = await fetch("/api/download", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                type: "file",
+                path: `${url}/${file}`,
+              }),
+            });
+            const text = await res.blob();
+            fileDownload(text, file);
+          } catch (err) {
+            console.error(err);
+          }
+        });
+
+        this.SetAll(false);
       }
-      else
-        alert(msg)
-
-      // const res = await fetch(`/api/file/download`, {
-      //   method: 'POST',
-      //   headers: {"Content-Type": "application/force-download"},
-      //   body: JSON.stringify({
-      //     path : this.$route.path,
-      //     dirlist: selectedDir,
-      //     filelist: selectedFile,
-      //   })
-      // })
-
-      var fileDownload = require("js-file-download");
-
-      (async () => {
-        const res = await fetch('/download/Snowsore/BigAss.txt')
-        fileDownload(await res.text(),"ass.txt")
-      })()
     },
 
     async GetList() {
@@ -95,8 +142,8 @@ export default {
       }
       const list = await res.json();
       console.log(list);
-      this.listDir = list['dir'];
-      this.listFile = list['file'];
+      this.listDir = list["dir"];
+      this.listFile = list["file"];
     },
   },
 };
