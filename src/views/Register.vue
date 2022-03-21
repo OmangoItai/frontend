@@ -1,17 +1,20 @@
 <template>
   <div class="login">
     <div class="sub-item">
-      用户名
+      <div class="label">用户名</div>
+
       <input v-model="username" />
     </div>
 
     <div class="sub-item">
-      密码
+      <div class="label">密码</div>
+
       <input v-model="password" type="password" />
     </div>
     <div class="sub-item">
-      重复密码
-      <input style="margin-left: 35px" v-model="repeat" type="password" />
+      <div class="label">重复密码</div>
+
+      <input v-model="repeat" type="password" />
     </div>
     <Button @click="Register">注册</Button>
   </div>
@@ -43,7 +46,7 @@ export default {
           }),
         });
         const json = await res.json();
-        alert(JSON.stringify(json['msg']));
+        alert(JSON.stringify(json["msg"]));
       }
     },
   },
@@ -72,5 +75,10 @@ input {
 }
 .sub-item {
   font-size: 1.6em;
+}
+.label {
+  display: inline-block;
+  width: 140px;
+  text-align: center;
 }
 </style>

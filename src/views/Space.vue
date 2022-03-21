@@ -22,7 +22,8 @@
     </div>
 
     <Button @click="DownLoad">下载</Button>
-    <Button @click="DownLoad">上传</Button>
+    <Button @click="ClickUpload">上传</Button>
+    <input id="UploadInput" @change="Upload" type="file" />
   </div>
 </template>
 
@@ -53,6 +54,23 @@ export default {
       inputs.forEach((e) => (e.checked = state));
     },
 
+    ClickUpload() {
+      document.getElementById("UploadInput").click();
+    },
+
+    async Upload() {
+      const input = document.getElementById("UploadInput");
+      const form = new FormData();
+      const file = input.files[0];
+      form.append("file", file, file.name);
+      form.append("path", window.location.pathname);
+      await fetch("/api/upload", {
+        method: "POST",
+        body: form,
+      });
+      this.GetList();
+    },
+
     async DownLoad() {
       let selectedDir = [];
       let selectedFile = [];
@@ -77,11 +95,12 @@ export default {
         selectedDir.map(async (dir) => {
           try {
             const res = await fetch("/api/download", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify({
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
+                type: "dir",
                 path: `${url}/${dir}`,
               }),
             });
@@ -100,6 +119,7 @@ export default {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
+                type: "file",
                 path: `${url}/${file}`,
               }),
             });
@@ -109,6 +129,8 @@ export default {
             console.error(err);
           }
         });
+
+        this.SetAll(false);
       }
     },
 
