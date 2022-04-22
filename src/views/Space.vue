@@ -23,7 +23,7 @@
 
     <Button @click="DownLoad">下载</Button>
     <Button @click="ClickUpload">上传</Button>
-    <input id="UploadInput" @change="Upload" type="file" />
+    <input id="UploadInput" @change="Upload" type="file" style="display:none"/>
   </div>
 </template>
 
